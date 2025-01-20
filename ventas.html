@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ROCK</title>
+    <link href="./css/stilos.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Paginacion -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.2.1/datatables.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./css/stilos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="logo-container">
+            <a href="index.html"><img src="./img/sin fondo 1.png" alt="Logo" class="logo"></a>
+            <span class="logo-text">The rock gym center</span>
+        </div>
+        <div class="user-info">
+            <span class="user-name">Anthony Erreyes</span>
+            <img src="#" alt="Usuario" class="user-avatar">
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4>OPCIONES</h4>
+        </div>
+
+        <!-- Menú principal -->
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Usuarios</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./usuario.html">Usuarios</a></li>
+                    <li><a href="./roles.html">Roles</a></li>
+                    <li><a href="./permisos.html">Permisos</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-id-card"></i>
+                    <span>Membresía</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./membresias.html">Membresias</a></li>
+                    <li><a href="./membre-usua.html">Membresias-Usuarios</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>Inventario</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./producto.html">Productos</a></li>
+                    <li><a href="./categorias.html">Categorias</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Ventas</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./ventas.html">Ventas</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-money-bill"></i>
+                    <span>Ingresos</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./ingresos.html">Ingresos</a></li>
+                    <li><a href="./detalle-ingreso.html">Detalle de Ingresos</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <div class="container mt-4">
+            <!-- Encabezado -->
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="float-start">LISTADO VENTAS</h2>
+                    <button type="button" class="btn btn-primary float-end" onclick="abrirModalNuevoVen()">
+                        <i class="fas fa-plus"></i> Nueva Venta
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabla -->
+            <div class="table-responsive">
+                <table id="mitabla" class="table table-striped table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Vendedor</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Fecha Venta</th>
+                            <th>Pagado</th>
+                            <th>Fecha Pago</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuario">
+                        <!-- Datos dinámicos aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalMemUsu" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Registro de Ventas</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form id="formMemUsu" novalidate>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <!-- Primera fila -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Cliente *</label>
+                                    <input type="text" class="form-control" id="cliente" required>
+                                    <div class="invalid-feedback">Por favor ingrese el Cliente</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Vendedor *</label>
+                                    <input type="text" class="form-control" id="cliente" required>
+                                    <div class="invalid-feedback">Por favor ingrese el Vendedor</div>
+                                </div>
+
+                                <!-- Segunda fila -->
+                                <div class="col-md-12">
+                                    <label class="form-label">Producto *</label>
+                                    <select class="form-control" id="estado" required>
+                                        <option value="" selected disabled>Seleccione un Producto</option>
+                                        <option value="bebida">Bebida</option>
+                                        <option value="macuerdas">Mancuerdas</option>
+                                        <option value="ropa">Ropa Deportiva</option>
+                                        <option value="suplemento">Suplemento</option>
+                                    </select>
+                                    <div class="invalid-feedback">Por favor seleccione un Producto/div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Precio *</label>
+                                        <input type="text" class="form-control" id="precio" required>
+                                        <div class="invalid-feedback">Por favor ingrese el precio</div>
+                                    </div>
+
+                                    <!-- Tercera fila -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">Fecha de Venta *</label>
+                                        <input type="date" class="form-control" id="fechaVenta" required>
+                                        <div class="invalid-feedback">Por favor seleccione una fecha</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Pago *</label>
+                                        <select class="form-control" id="estado" required>
+                                            <option value="" selected disabled>Seleccione un pago</option>
+                                            <option value="Activo">Pagado</option>
+                                            <option value="Inactivo">Deuda</option>
+                                        </select>
+                                        <div class="invalid-feedback">Por favor seleccione un pago</div>
+                                    </div>
+
+                                    <!-- Cuarta fila -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">Fecha Pago *</label>
+                                        <input type="date" class="form-control" id="fechaPago" required>
+                                        <div class="invalid-feedback">Por favor seleccione una fecha</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <!-- paginacion -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.2.1/datatables.min.js"></script>
+    <script>
+        var table = new DataTable('#mitabla', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-ES.json',
+            },
+        });
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle para los submenús
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const submenu = this.nextElementSibling;
+                    if (submenu) {
+                        submenu.classList.toggle('active');
+                        this.classList.toggle('open');
+                    }
+                });
+            });
+        });
+        // Variables globales
+        let ventas = [];
+        let editandoId = null;
+        const modal = new bootstrap.Modal(document.getElementById('modalMemUsu'));
+        const form = document.getElementById('formMemUsu');
+
+        // Función para abrir el modal de nueva venta
+        function abrirModalNuevoVen() {
+            editandoId = null;
+            form.reset();
+            document.querySelector('.modal-title').textContent = 'Nuevo Registro de Venta';
+            modal.show();
+        }
+
+        // Función para cargar las ventas desde localStorage
+        function cargarVentas() {
+            const ventasGuardadas = localStorage.getItem('ventas');
+            if (ventasGuardadas) {
+                ventas = JSON.parse(ventasGuardadas);
+                actualizarTablaVentas();
+            }
+        }
+
+        // Función para actualizar la tabla de ventas
+        function actualizarTablaVentas() {
+            const tbody = document.getElementById('tablaUsuario');
+            tbody.innerHTML = '';
+
+            ventas.forEach(venta => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+            <td>${venta.cliente}</td>
+            <td>${venta.vendedor}</td>
+            <td>${venta.producto}</td>
+            <td>${venta.precio}</td>
+            <td>${venta.fechaVenta}</td>
+            <td>${venta.estadoPago}</td>
+            <td>${venta.fechaPago}</td>
+            <td>
+                <button class="btn btn-warning btn-sm me-1" onclick="editarVenta(${venta.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="eliminarVenta(${venta.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Función para guardar o actualizar la venta
+        function guardarVenta(e) {
+            e.preventDefault();
+
+            // Validar formulario
+            if (!form.checkValidity()) {
+                e.stopPropagation();
+                form.classList.add('was-validated');
+                return;
+            }
+
+            // Recoger datos del formulario
+            const venta = {
+                id: editandoId || Date.now(),
+                cliente: document.getElementById('cliente').value.trim(),
+                vendedor: document.getElementById('vendedor').value.trim(),
+                producto: document.getElementById('producto').value.trim(),
+                precio: document.getElementById('precio').value.trim(),
+                fechaVenta: document.getElementById('fechaVenta').value.trim(),
+                estadoPago: document.getElementById('pagoEstado').value.trim(),
+                fechaPago: document.getElementById('fechaPago').value.trim()
+            };
+
+            try {
+                if (editandoId) {
+                    // Actualizar venta existente
+                    const index = ventas.findIndex(v => v.id === editandoId);
+                    ventas[index] = venta;
+                } else {
+                    // Agregar nueva venta
+                    ventas.push(venta);
+                }
+
+                // Guardar en localStorage
+                localStorage.setItem('ventas', JSON.stringify(ventas));
+
+                // Actualizar tabla
+                actualizarTablaVentas();
+
+                // Cerrar modal y resetear formulario
+                modal.hide();
+                form.reset();
+                form.classList.remove('was-validated');
+
+                alert('Venta guardada exitosamente');
+            } catch (error) {
+                console.error('Error al guardar:', error);
+                alert('Error al guardar la venta');
+            }
+        }
+
+        // Función para editar venta
+        function editarVenta(id) {
+            const venta = ventas.find(v => v.id === id);
+            if (venta) {
+                editandoId = id;
+                document.querySelector('.modal-title').textContent = 'Editar Venta';
+
+                // Llenar formulario con los datos de la venta
+                document.getElementById('cliente').value = venta.cliente;
+                document.getElementById('vendedor').value = venta.vendedor;
+                document.getElementById('producto').value = venta.producto;
+                document.getElementById('precio').value = venta.precio;
+                document.getElementById('fechaVenta').value = venta.fechaVenta;
+                document.getElementById('pagoEstado').value = venta.estadoPago;
+                document.getElementById('fechaPago').value = venta.fechaPago;
+
+                modal.show();
+            }
+        }
+
+        // Función para eliminar venta
+        function eliminarVenta(id) {
+            if (confirm('¿Está seguro de eliminar esta venta?')) {
+                ventas = ventas.filter(v => v.id !== id);
+                localStorage.setItem('ventas', JSON.stringify(ventas));
+                actualizarTablaVentas();
+            }
+        }
+
+        // Cargar ventas al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarVentas();
+
+            // Limpiar validación al cerrar el modal
+            document.getElementById('modalMemUsu').addEventListener('hidden.bs.modal', () => {
+                form.classList.remove('was-validated');
+                form.reset();
+            });
+        });
+
+        // Event listener para el formulario
+        form.addEventListener('submit', guardarVenta);
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ROCK</title>
+    <link href="stilos.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Paginacion -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.2.1/datatables.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./css/stilos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="logo-container">
+            <a href="index.html"><img src="./img/sin fondo 1.png" alt="Logo" class="logo"></a>
+            <span class="logo-text">The rock gym center</span>
+        </div>
+        <div class="user-info">
+            <span class="user-name">Anthony Erreyes</span>
+            <img src="/api/placeholder/32/32" alt="Usuario" class="user-avatar">
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h4>OPCIONES</h4>
+        </div>
+
+        <!-- Menú principal -->
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Usuarios</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./usuario.html">Usuarios</a></li>
+                    <li><a href="./roles.html">Roles</a></li>
+                    <li><a href="./permisos.html">Permisos</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-id-card"></i>
+                    <span>Membresía</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="membresias.html">Membresias</a></li>
+                    <li><a href="./membre-usua.html">Membresias-Usuarios</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>Inventario</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./producto.html">Productos</a></li>
+                    <li><a href="./categorias.html">Categorias</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Ventas</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./ventas.html">Ventas</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-money-bill"></i>
+                    <span>Ingresos</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="./ingresos.html">Ingresos</a></li>
+                    <li><a href="./detalle-ingreso.html">Detalle de Ingresos</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <div class="container mt-4">
+            <!-- Encabezado -->
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="float-start">LISTADO DE DETALLE-INGRESO</h2>
+                    <button type="button" class="btn btn-primary float-end" onclick="abrirModalNuevoDeIn()">
+                        <i class="fas fa-plus"></i> Nuevo Detalle-Ingreso
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="mitabla" class="table table-striped table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Ingreso</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDein"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalDein" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Registrar Detalle-Ingreso</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form id="formDein" novalidate>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="ingresoDein" class="form-label">Ingreso *</label>
+                                <input type="text" class="form-control" id="ingresoDein" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productoDein" class="form-label">Producto *</label>
+                                <input type="text" class="form-control" id="productoDein" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cantidadDein" class="form-label">Cantidad *</label>
+                                <input type="text" class="form-control" id="cantidadDein" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <!-- paginacion -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.2.1/datatables.min.js"></script>
+    <script>
+        var table = new DataTable('#mitabla', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-ES.json',
+            },
+        });
+    </script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle para los submenús
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const submenu = this.nextElementSibling;
+                    if (submenu) {
+                        submenu.classList.toggle('active');
+                        this.classList.toggle('open');
+                    }
+                });
+            });
+        });
+
+        // Variables globales
+        let detallesIngreso = [];
+        let editandoDetalleId = null;
+        const modalDein = new bootstrap.Modal(document.getElementById('modalDein'));
+        const formDein = document.getElementById('formDein');
+
+        // Función para abrir el modal de nuevo detalle-ingreso
+        function abrirModalNuevoDeIn() {
+            editandoDetalleId = null;
+            formDein.reset();
+            document.querySelector('.modal-title').textContent = 'Registrar Detalle-Ingreso';
+            modalDein.show();
+        }
+
+        // Función para cargar detalles desde localStorage
+        function cargarDetallesIngreso() {
+            const detallesGuardados = localStorage.getItem('detallesIngreso');
+            if (detallesGuardados) {
+                detallesIngreso = JSON.parse(detallesGuardados);
+                actualizarTablaDein();
+            }
+        }
+
+        // Función para actualizar la tabla de detalle-ingreso
+        function actualizarTablaDein() {
+            const tbody = document.getElementById('tablaDein');
+            tbody.innerHTML = '';
+
+            detallesIngreso.forEach(detalle => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+            <td>${detalle.ingreso}</td>
+            <td>${detalle.producto}</td>
+            <td>${detalle.cantidad}</td>
+            <td>
+                <button class="btn btn-warning btn-sm me-1" onclick="editarDetalleIngreso(${detalle.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="eliminarDetalleIngreso(${detalle.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Función para guardar o actualizar un detalle-ingreso
+        function guardarDetalleIngreso(e) {
+            e.preventDefault();
+
+            // Validar formulario
+            if (!formDein.checkValidity()) {
+                e.stopPropagation();
+                formDein.classList.add('was-validated');
+                return;
+            }
+
+            // Recoger datos del formulario
+            const detalle = {
+                id: editandoDetalleId || Date.now(),
+                ingreso: document.getElementById('ingresoDein').value.trim(),
+                producto: document.getElementById('productoDein').value.trim(),
+                cantidad: document.getElementById('cantidadDein').value.trim()
+            };
+
+            try {
+                if (editandoDetalleId) {
+                    // Actualizar detalle existente
+                    const index = detallesIngreso.findIndex(d => d.id === editandoDetalleId);
+                    detallesIngreso[index] = detalle;
+                } else {
+                    // Agregar nuevo detalle
+                    detallesIngreso.push(detalle);
+                }
+
+                // Guardar en localStorage
+                localStorage.setItem('detallesIngreso', JSON.stringify(detallesIngreso));
+
+                // Actualizar tabla
+                actualizarTablaDein();
+
+                // Cerrar modal y resetear formulario
+                modalDein.hide();
+                formDein.reset();
+                formDein.classList.remove('was-validated');
+
+                alert('Detalle-Ingreso guardado exitosamente');
+            } catch (error) {
+                console.error('Error al guardar el detalle-ingreso:', error);
+                alert('Error al guardar el detalle-ingreso');
+            }
+        }
+
+        // Función para editar un detalle-ingreso
+        function editarDetalleIngreso(id) {
+            const detalle = detallesIngreso.find(d => d.id === id);
+            if (detalle) {
+                editandoDetalleId = id;
+                document.querySelector('.modal-title').textContent = 'Editar Detalle-Ingreso';
+
+                // Llenar formulario con los datos del detalle-ingreso
+                document.getElementById('ingresoDein').value = detalle.ingreso;
+                document.getElementById('productoDein').value = detalle.producto;
+                document.getElementById('cantidadDein').value = detalle.cantidad;
+
+                modalDein.show();
+            }
+        }
+
+        // Función para eliminar un detalle-ingreso
+        function eliminarDetalleIngreso(id) {
+            if (confirm('¿Está seguro de eliminar este detalle-ingreso?')) {
+                detallesIngreso = detallesIngreso.filter(d => d.id !== id);
+                localStorage.setItem('detallesIngreso', JSON.stringify(detallesIngreso));
+                actualizarTablaDein();
+            }
+        }
+
+        // Cargar detalles al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarDetallesIngreso();
+
+            // Limpiar validación al cerrar el modal
+            document.getElementById('modalDein').addEventListener('hidden.bs.modal', () => {
+                formDein.classList.remove('was-validated');
+                formDein.reset();
+            });
+        });
+
+        // Event listener para el formulario
+        formDein.addEventListener('submit', guardarDetalleIngreso);
+    </script>
+</body>
+
+</html>
