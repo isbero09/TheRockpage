@@ -91,10 +91,25 @@
         </ul>
     </div>
 
-    <div class="main-content">
-        <div class="container mt-4">
-        </div>
-    
+    <div class="main-content" style="display: flex; justify-content: center; align-items: center;">
+        <table class="table table-bordered text-center" style="width: 80%; height: 80%; margin: 0;">
+            <tr>
+                <th colspan="2" style="background-color: black; color: white;">THE ROCK GYM CENTER</th>
+            </tr>
+            <tr>
+                <th>MEMBRESIAS</th>
+                <th>PRODUCTOS</th>
+            </tr>
+            <tr>
+                <th style="width: 50%; height: 100%;">
+                    <canvas id="myChartMem" style="width: 100%; height: 100%; display: block;"></canvas>
+                </th>
+                <th style="width: 50%; height: 100%;">
+                    <canvas id="myChartPro" style="width: 100%; height: 100%; display: block;"></canvas>
+                </th>
+            </tr>
+        </table>
+
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Sistema JS -->
@@ -104,6 +119,9 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Chart-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -120,6 +138,57 @@
                 });
             });
         });
+    </script>
+    <script>
+        const ctx = document.getElementById('myChartMem');
+        const ctxP = document.getElementById('myChartPro');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Oro',
+                    'Plata',
+                    'Bronce',
+                    'Estudiantil',
+                    'Anuales'
+                ],
+                datasets: [{
+                    data: [300, 50, 100, 25, 30],
+                    backgroundColor: [
+                        'rgb(217, 136, 128)',
+                        'rgb(187, 143, 206)',
+                        'rgb(127, 179, 213)',
+                        'rgb(125, 206, 160)',
+                        'rgb(229, 152, 102)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+        });
+
+        new Chart(ctxP, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Ropa',
+                    'Suplemento',
+                    'Equipo Deportivo',
+                    'Bebida'
+                ],
+                datasets: [{
+                    data: [300, 50, 100, 25],
+                    backgroundColor: [
+                        'rgb(125, 206, 160)',
+                        'rgb(127, 179, 213)',
+                        'rgb(187, 143, 206)',
+                        'rgb(229, 152, 102)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+        });
+
     </script>
 </body>
 </html>
